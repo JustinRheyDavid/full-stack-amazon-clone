@@ -1,0 +1,9 @@
+{
+  "name": "fullstackamazonproject",
+  "private": true,
+  "scripts": {
+    "start": "npm --prefix amazon-clone start",
+    "build": "npm --prefix amazon-clone run build",
+    "test": "npm --prefix amazon-clone run test"
+  }
+}
