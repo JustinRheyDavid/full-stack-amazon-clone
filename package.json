@@ -1,9 +1,15 @@
 {
-  "name": "fullstackamazonproject",
+  "name": "full-stack-amazon-clone",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "npm --prefix amazon-clone start",
-    "build": "npm --prefix amazon-clone run build",
-    "test": "npm --prefix amazon-clone run test"
+    "start": "cd amazon-clone && npm start",
+    "build": "cd amazon-clone && npm build",
+    "test": "cd amazon-clone && npm test",
+    "install": "cd amazon-clone && npm install"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3"
   }
 }

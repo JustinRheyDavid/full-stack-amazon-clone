@@ -6,5 +6,6 @@ const firebaseConfig = {
   storageBucket: "challenge-f483a.firebasestorage.app",
   messagingSenderId: "65416787252",
   appId: "1:65416787252:web:decbb3ae2ab915c52e2161",
-  measurementId: "G-6B2C0YCRQF"
+  measurementId: "G-6B2C0YCRQF" ,
+  databaseURL: "https://challenge-f483a-default-rtdb.firebaseio.com"
 };
