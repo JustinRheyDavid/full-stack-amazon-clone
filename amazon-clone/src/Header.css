@@ -9,6 +9,11 @@
 
 }
 
+.header a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .header__logo {
     width: 100px;
     object-fit: contain;

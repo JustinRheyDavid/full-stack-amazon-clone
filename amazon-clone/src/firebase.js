@@ -1,3 +1,9 @@
+
+import firebase from "firebase/compat/app"
+import "firebase/compat/auth"
+import "firebase/compat/firestore"
+
+
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyBnNdrGY41E88Rqm9X8HGPdZb76Ya0tzg8",
@@ -7,5 +13,14 @@ const firebaseConfig = {
   messagingSenderId: "65416787252",
   appId: "1:65416787252:web:decbb3ae2ab915c52e2161",
   measurementId: "G-6B2C0YCRQF" ,
-  databaseURL: "https://challenge-f483a-default-rtdb.firebaseio.com"
+  databaseURL: "https://challenge-f483a-default-rtdb.firebaseio.com",
+};
+
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+
+const db = firebaseApp.firestore();
+const auth = firebase.auth();
+
+export{
+  db, auth
 };
