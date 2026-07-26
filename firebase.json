@@ -1,7 +1,7 @@
 {
   "hosting": {
     "predeploy": "npm run build",
-    "public": "public",
+    "public": "amazon-clone/build",
     "ignore": [
       "firebase.json",
       "**/.*",
