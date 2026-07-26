@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "cd amazon-clone && npm start",
-    "build": "cd amazon-clone && npm build",
+    "build": "cd amazon-clone && npm run build",
     "test": "cd amazon-clone && npm test",
     "install": "cd amazon-clone && npm install"
   },
