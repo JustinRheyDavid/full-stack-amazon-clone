@@ -21,16 +21,20 @@ function Payment() {
     const [clientSecret, setClientSecret] = useState('');
 
     useEffect(() => {
+        if (getBasketTotal(basket) <= 0) return;
+
         const getClientSecret = async () => {
             const response = await axios({
                 method: 'post',
-                url: `/payments/create?total=${getBasketTotal(basket) * 100}`,
+                url: `/payments/create?total=${Math.round(getBasketTotal(basket) * 100)}`,
             });
             setClientSecret(response.data.clientSecret);
         };
 
         getClientSecret();
     }, [basket]);
+
+    console.log('the secret is >>>', clientSecret)
 
     const handleSubmit = async (event) => {
         event.preventDefault();

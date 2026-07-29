@@ -23,18 +23,19 @@ app.post('/payments/create', async (request, response) => {
 
     console.log('Payment Request Recieved for this amount >>> ', total)
 
-
-    const paymentIntent = await stripe.paymentIntent.create({
-        amount: total ,
-        currency: 'usd',
-        
-    });
-        response.status (201).send({
+    try {
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount: total,
+            currency: 'usd',
+        });
+        response.status(201).send({
             clientSecret: paymentIntent.client_secret,
-        })
-
-
-} )
+        });
+    } catch (error) {
+        console.error('Stripe paymentIntent creation failed >>> ', error.message);
+        response.status(400).send({ error: error.message });
+    }
+})
 
 
 //Listen command
