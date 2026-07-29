@@ -7,9 +7,10 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import CurrencyFormat from 'react-currency-format';
 import { getBasketTotal } from './reducer';
 import axios from './axios';
+import { db } from './firebase';
 
 function Payment() {
-    const [{basket, user}] = useStateValue();
+    const [{basket, user}, dispatch] = useStateValue();
     const navigate = useNavigate();
     const stripe = useStripe();
     const elements = useElements();
@@ -18,7 +19,7 @@ function Payment() {
     const [disabled, setDisabled] = useState(true);
     const [processing, setProcessing] = useState(false);
     const [succeeded, setSucceeded] = useState(false);
-    const [clientSecret, setClientSecret] = useState('');
+    const [clientSecret, setClientSecret] = useState(null);
 
     useEffect(() => {
         if (getBasketTotal(basket) <= 0) return;
@@ -34,7 +35,7 @@ function Payment() {
         getClientSecret();
     }, [basket]);
 
-    console.log('the secret is >>>', clientSecret)
+    console.log('the secret is', clientSecret)
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -45,7 +46,7 @@ function Payment() {
             payment_method: {
                 card: elements.getElement(CardElement)
             }
-        }).then(({ error }) => {
+        }).then(({ paymentIntent, error }) => {
             setProcessing(false);
 
             if (error) {
@@ -53,8 +54,21 @@ function Payment() {
                 return;
             }
 
+            db.collection('users')
+            .doc(user?.uid)
+            .collection('orders')
+            .doc(paymentIntent.id)
+            .set({
+                basket: basket,
+                amount: paymentIntent.amount,
+                created: paymentIntent.created
+            })
+
             setSucceeded(true);
             setError(null);
+
+            dispatch({ type: 'EMPTY_BASKET' });
+
             navigate('/orders', { replace: true });
         });
     };
@@ -80,8 +94,8 @@ function Payment() {
 </div>
 <div className ='payment_address'>
     <p>{user?.email}</p>
-    <p>123 React lane</p>
-    <p>LA, CA</p>
+    <p>123 Elm Street</p>
+    <p>Montreal, QC</p>
 
         </div>
 </div>
@@ -128,7 +142,7 @@ function Payment() {
                                     prefix={'$'}
                                 />
 
-                                <button className='payment_button' disabled={!stripe || processing || disabled || succeeded}>
+                                <button className='payment_button' disabled={!stripe || !clientSecret || processing || disabled || succeeded}>
                                     <span>{processing ? "Processing" : "Buy Now"}</span>
                                 </button>
                             </div>
