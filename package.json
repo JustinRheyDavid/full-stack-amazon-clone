@@ -11,6 +11,9 @@
   "dependencies": {
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
+    "@stripe/react-stripe-js": "^6.8.0",
+    "@stripe/stripe-js": "^9.12.1",
+    "axios": "^1.18.1",
     "firebase": "^12.16.0"
   }
 }

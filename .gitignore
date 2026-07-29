@@ -1,1 +1,10 @@
 node_modules
+
+# Firebase local cache/logs
+.firebase/
+firebase-debug.log
+
+# Claude Code tool config
+.claude/
+.agents/
+skills-lock.json
